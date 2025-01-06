@@ -1,12 +1,30 @@
+import React, { useState } from 'react';
+import Home from './components/Home';
+import CreateRecipe from './components/CreateRecipe/CreateRecipe';
+import RecipeHistory from './components/RecipeHistory/RecipeHistory';
+import Header from './components/Header';
 
-import './App.css';
+const App = () => {
+  const [view, setView] = useState('home');
+  const [recipes, setRecipes] = useState([]);
 
-function App() {
+  const changeView = (newView) => setView(newView);
+
   return (
-    <div className="App">
+    <div>
+      {/* Header */}
+      <Header changeView={changeView} />
 
+      {/* Vistas */}
+      {view === 'home' && <Home changeView={changeView} />}
+      {view === 'create-recipe' && (
+        <CreateRecipe changeView={changeView} setRecipes={setRecipes} recipes={recipes} />
+      )}
+      {view === 'recipe-history' && (
+        <RecipeHistory changeView={changeView} recipes={recipes} />
+      )}
     </div>
   );
-}
+};
 
 export default App;
